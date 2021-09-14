@@ -1,14 +1,21 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 export default function Task({ text }) {
+  const [selected, setSelected] = useState(false);
+
   return (
     <View style={styles.item}>
       <View style={styles.itemLeft}>
         <View style={styles.square}></View>
         <Text style={styles.text}>{text}</Text>
       </View>
-      <View style={styles.circular}></View>
+      <TouchableOpacity
+        style={styles.check}
+        onPress={() => setSelected(!selected)}
+      >
+        <View style={selected ? styles.selected : styles.unselected}></View>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -39,11 +46,17 @@ const styles = StyleSheet.create({
     opacity: 0.6,
     marginRight: 15,
   },
-  circular: {
+  unselected: {
     width: 12,
     height: 12,
     borderColor: "blue",
     borderWidth: 2,
+    borderRadius: 6,
+  },
+  selected: {
+    width: 12,
+    height: 12,
+    backgroundColor: "blue",
     borderRadius: 6,
   },
 });
