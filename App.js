@@ -33,9 +33,7 @@ export default function App() {
         <Text style={styles.title}>Todays Tasks</Text>
         <View style={styles.items}>
           {taskItems.map((item, index) => (
-            <TouchableOpacity>
-              <Task text={item} key={index} />
-            </TouchableOpacity>
+            <Task text={item} key={index} swipe={completeTask} index={index} />
           ))}
         </View>
       </View>

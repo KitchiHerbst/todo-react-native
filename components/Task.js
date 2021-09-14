@@ -1,22 +1,27 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import GestureRecognizer, {
+  swipeDirections,
+} from "react-native-swipe-gestures";
 
-export default function Task({ text }) {
+export default function Task({ text, swipe, index }) {
   const [selected, setSelected] = useState(false);
 
   return (
-    <View style={styles.item}>
-      <View style={styles.itemLeft}>
-        <View style={styles.square}></View>
-        <Text style={styles.text}>{text}</Text>
+    <GestureRecognizer onSwipeLeft={() => swipe(index)}>
+      <View style={styles.item}>
+        <View style={styles.itemLeft}>
+          <View style={styles.square}></View>
+          <Text style={styles.text}>{text}</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.check}
+          onPress={() => setSelected(!selected)}
+        >
+          <View style={selected ? styles.selected : styles.unselected}></View>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={styles.check}
-        onPress={() => setSelected(!selected)}
-      >
-        <View style={selected ? styles.selected : styles.unselected}></View>
-      </TouchableOpacity>
-    </View>
+    </GestureRecognizer>
   );
 }
 
